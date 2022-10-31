@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class RigidbodyController : MonoBehaviour
 {
+    //Scene stuff
+    public bool planetGravity;
+
     //Movement
-    public float moveSpeed = 6f;
+    public float moveSpeed = 8f;
     public float movementMultiplier = 10f;
     private Vector3 moveDirection;
     private float horizontalMovement;
     private float verticalMovement;
-    public float groundDrag = 2f;
+    public float groundDrag = 5f;
 
     //Jump Movement
-    public float airDrag = 0.5f;
-    public float jumpPower;
+    public float airDrag = 1f;
+    public float jumpPower = 10;
     public float airMultiplier = .2f;
-    bool isGrounded;
-    public float gravity = -9.81f;
+    private bool isGrounded;
+    public float gravity = -20f;
 
     public Rigidbody rb;
 
@@ -31,7 +34,7 @@ public class RigidbodyController : MonoBehaviour
     private Vector3 lastSide, currentSide;
     public Transform rotator;
     public CameraController camControl;
-    public float rotationSpeed = 0.2f;
+    public float rotationSpeed = 6f;
     private float currentRotation;
     RaycastHit hit;
     private float camCorrection;
@@ -50,7 +53,10 @@ public class RigidbodyController : MonoBehaviour
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, .1f, groundMask);
-        GravityCheckTwo();
+        if (planetGravity)
+        {
+            GravityCheck();
+        }
         PlayerInput();
         ControlDrag();
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -70,25 +76,9 @@ public class RigidbodyController : MonoBehaviour
         rb.AddForce(transform.up * jumpPower, ForceMode.Impulse);
     }
 
-    //Checks if the player is trying to move to a different side of the planet by shooting
-    //a line from the player to the center of the planet and checking the normals
-    //of the surface hit. If it is a new surface, updates the gravity and player orientation
-    private void GravityCheck()
-    {
-        hit = new RaycastHit();
-        Physics.Linecast(transform.position, core.position, out hit, planetLayer);
-        camControl.modifier = 0;
-        if (lastSide != hit.normal)
-        {
-            EditModifier();
-            lastSide = hit.normal;
-            transform.up = hit.normal;
-            Physics.gravity = hit.normal * gravity;
-        }
-    }
 
     //Same function as above, but now rotates player gradually instead of snapping their orientation into place
-    private void GravityCheckTwo()
+    private void GravityCheck()
     {
         hit = new RaycastHit();
         Physics.Linecast(transform.position, core.position, out hit, planetLayer);

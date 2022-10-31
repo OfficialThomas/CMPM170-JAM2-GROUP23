@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class NormalCamController : MonoBehaviour
 {
+    //Camera input/rotation
+    float mouseX, mouseY;
+    float multiplier = 0.01f;
+    float xRotation, yRotation;
+
     //Camera sens
     public float sensX;
     public float sensY;
 
     //Camera objects
     public Camera cam;
-    public Transform rotator;
-
-    //Camera input/rotation
-    float mouseX, mouseY;
-    float multiplier = 0.01f;
-    float xRotation, yRotation;
-    public float modifier;
 
     void Start()
     {
@@ -31,7 +29,7 @@ public class CameraController : MonoBehaviour
         MouseInput();
 
         cam.transform.localRotation = Quaternion.Euler(cam.transform.localEulerAngles - Vector3.right * xRotation);
-        rotator.localRotation = Quaternion.Euler(rotator.localEulerAngles + Vector3.up * (yRotation + modifier));
+        transform.localRotation = Quaternion.Euler(transform.localEulerAngles + Vector3.up * yRotation);
     }
 
     //Reads in the mouse input
