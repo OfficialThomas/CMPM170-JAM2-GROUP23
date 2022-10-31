@@ -26,28 +26,32 @@ public class RigidbodyController : MonoBehaviour
     public LayerMask groundMask;
     public LayerMask planetLayer;
 
-    //Planet rotation
+    //Player rotation
     public Transform core;
-    private Vector3 lastSide;
+    private Vector3 lastSide, currentSide;
     public Transform rotator;
     public CameraController camControl;
+    public float rotationSpeed = 0.2f;
+    private float currentRotation;
     RaycastHit hit;
+    private float camCorrection;
 
     void Start()
     {
         rb.freezeRotation = true;
         lastSide = new Vector3(0, 1, 0);
+        currentSide = new Vector3(0, 1, 0);
         Physics.gravity = lastSide * gravity;
+        currentRotation = 0;
+        camCorrection = 0;
     }
 
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, .1f, groundMask);
-
-        GravityCheck();
+        GravityCheckTwo();
         PlayerInput();
         ControlDrag();
-
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Jump();
@@ -82,6 +86,39 @@ public class RigidbodyController : MonoBehaviour
         }
     }
 
+    private void GravityCheckTwo()
+    {
+        hit = new RaycastHit();
+        Physics.Linecast(transform.position, core.position, out hit, planetLayer);
+        camControl.modifier = 0;
+        
+        //checks if player needs to rotate to new side
+        if (currentSide != hit.normal)
+        {
+            currentSide = hit.normal;
+            Physics.gravity = hit.normal * gravity;
+            currentRotation = 0;
+            camCorrection = 0;
+        }
+        //Checks if the player needs to rotate more
+        if (transform.up != hit.normal)
+        {
+            Rotate();
+        }
+        else
+        {
+            lastSide = hit.normal;
+        }
+    }
+
+    //Uses lerp to gradually rotate player when moving to a new side
+    private void Rotate()
+    {
+        currentRotation += rotationSpeed * Time.deltaTime;
+        EditModifier();
+        transform.up = Vector3.Lerp(lastSide, hit.normal, currentRotation);     
+    }
+
     //Sets the camController modifier which corrects the rotation of the player
     //when going between certain sides
     private void EditModifier()
@@ -89,32 +126,44 @@ public class RigidbodyController : MonoBehaviour
         //front to left and right to front
         if ((lastSide == Vector3.forward && hit.normal == Vector3.left) || (lastSide == Vector3.right && hit.normal == Vector3.forward))
         {
-            camControl.modifier = -90;
+            camControl.modifier = Mathf.Lerp(0, -90, currentRotation) - camCorrection;
+            camCorrection = Mathf.Lerp(0, -90, currentRotation);
+            //camControl.modifier = -90;
         }
         //left to front and front to right
         else if ((lastSide == Vector3.left && hit.normal == Vector3.forward) || (lastSide == Vector3.forward && hit.normal == Vector3.right))
         {
-            camControl.modifier = 90;
+            camControl.modifier = Mathf.Lerp(0, 90, currentRotation) - camCorrection;
+            camCorrection = Mathf.Lerp(0, 90, currentRotation);
+            //camControl.modifier = 90;
         }
         //back to left and right to back
         if ((lastSide == Vector3.back && hit.normal == Vector3.left) || (lastSide == Vector3.right && hit.normal == Vector3.back))
         {
-            camControl.modifier = 90;
+            camControl.modifier = Mathf.Lerp(0, 90, currentRotation) - camCorrection;
+            camCorrection = Mathf.Lerp(0, 90, currentRotation);
+            //camControl.modifier = 90;
         }
         //left to back and back to right
         else if ((lastSide == Vector3.left && hit.normal == Vector3.back) || (lastSide == Vector3.back && hit.normal == Vector3.right))
         {
-            camControl.modifier = -90;
+            camControl.modifier = Mathf.Lerp(0, -90, currentRotation) - camCorrection;
+            camCorrection = Mathf.Lerp(0, -90, currentRotation);
+            //camControl.modifier = -90;
         }
         //bottom to left and right to bottom
         if ((lastSide == Vector3.down && hit.normal == Vector3.left) || (lastSide == Vector3.right && hit.normal == Vector3.down))
         {
-            camControl.modifier = 180;
+            camControl.modifier = Mathf.Lerp(0, -180, currentRotation) - camCorrection;
+            camCorrection = Mathf.Lerp(0, -180, currentRotation);
+            //camControl.modifier = 180;
         }
         //left to bottom and bottom to right
         else if ((lastSide == Vector3.left && hit.normal == Vector3.down) || (lastSide == Vector3.down && hit.normal == Vector3.right))
         {
-            camControl.modifier = -180;
+            camControl.modifier = Mathf.Lerp(0, 180, currentRotation) - camCorrection;
+            camCorrection = Mathf.Lerp(0, 180, currentRotation);
+            //camControl.modifier = -180;
         }
     }
 

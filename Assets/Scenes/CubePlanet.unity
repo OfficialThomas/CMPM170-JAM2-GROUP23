@@ -788,6 +788,7 @@ MonoBehaviour:
   core: {fileID: 1785859822}
   rotator: {fileID: 588235461}
   camControl: {fileID: 359597292}
+  rotationSpeed: 5
 --- !u!4 &359597294
 Transform:
   m_ObjectHideFlags: 0
