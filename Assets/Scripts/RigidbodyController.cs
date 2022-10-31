@@ -35,6 +35,7 @@ public class RigidbodyController : MonoBehaviour
     private float currentRotation;
     RaycastHit hit;
     private float camCorrection;
+    private bool camFlipped = true;
 
     void Start()
     {
@@ -86,12 +87,12 @@ public class RigidbodyController : MonoBehaviour
         }
     }
 
+    //Same function as above, but now rotates player gradually instead of snapping their orientation into place
     private void GravityCheckTwo()
     {
         hit = new RaycastHit();
         Physics.Linecast(transform.position, core.position, out hit, planetLayer);
         camControl.modifier = 0;
-        
         //checks if player needs to rotate to new side
         if (currentSide != hit.normal)
         {
@@ -99,6 +100,7 @@ public class RigidbodyController : MonoBehaviour
             Physics.gravity = hit.normal * gravity;
             currentRotation = 0;
             camCorrection = 0;
+            camFlipped = false;
         }
         //Checks if the player needs to rotate more
         if (transform.up != hit.normal)
@@ -107,7 +109,7 @@ public class RigidbodyController : MonoBehaviour
         }
         else
         {
-            lastSide = hit.normal;
+            lastSide = hit.normal;         
         }
     }
 
@@ -115,8 +117,8 @@ public class RigidbodyController : MonoBehaviour
     private void Rotate()
     {
         currentRotation += rotationSpeed * Time.deltaTime;
-        EditModifier();
-        transform.up = Vector3.Lerp(lastSide, hit.normal, currentRotation);     
+        transform.up = Vector3.Lerp(lastSide, hit.normal, currentRotation);
+        EditModifier();         
     }
 
     //Sets the camController modifier which corrects the rotation of the player
@@ -128,42 +130,42 @@ public class RigidbodyController : MonoBehaviour
         {
             camControl.modifier = Mathf.Lerp(0, -90, currentRotation) - camCorrection;
             camCorrection = Mathf.Lerp(0, -90, currentRotation);
-            //camControl.modifier = -90;
         }
         //left to front and front to right
         else if ((lastSide == Vector3.left && hit.normal == Vector3.forward) || (lastSide == Vector3.forward && hit.normal == Vector3.right))
         {
             camControl.modifier = Mathf.Lerp(0, 90, currentRotation) - camCorrection;
             camCorrection = Mathf.Lerp(0, 90, currentRotation);
-            //camControl.modifier = 90;
         }
         //back to left and right to back
         if ((lastSide == Vector3.back && hit.normal == Vector3.left) || (lastSide == Vector3.right && hit.normal == Vector3.back))
         {
             camControl.modifier = Mathf.Lerp(0, 90, currentRotation) - camCorrection;
             camCorrection = Mathf.Lerp(0, 90, currentRotation);
-            //camControl.modifier = 90;
         }
         //left to back and back to right
         else if ((lastSide == Vector3.left && hit.normal == Vector3.back) || (lastSide == Vector3.back && hit.normal == Vector3.right))
         {
             camControl.modifier = Mathf.Lerp(0, -90, currentRotation) - camCorrection;
             camCorrection = Mathf.Lerp(0, -90, currentRotation);
-            //camControl.modifier = -90;
         }
-        //bottom to left and right to bottom
-        if ((lastSide == Vector3.down && hit.normal == Vector3.left) || (lastSide == Vector3.right && hit.normal == Vector3.down))
+        //bottom to left and bottom to right, flips camera 180 at the start of the rotation
+        if ((lastSide == Vector3.down && hit.normal == Vector3.left) || (lastSide == Vector3.down && hit.normal == Vector3.right))
         {
-            camControl.modifier = Mathf.Lerp(0, -180, currentRotation) - camCorrection;
-            camCorrection = Mathf.Lerp(0, -180, currentRotation);
-            //camControl.modifier = 180;
+            if (!camFlipped)
+            {
+                camFlipped = true;
+                camControl.modifier = 180;
+            }
         }
-        //left to bottom and bottom to right
-        else if ((lastSide == Vector3.left && hit.normal == Vector3.down) || (lastSide == Vector3.down && hit.normal == Vector3.right))
+        //right to bottom and left to bottom, flips camera 180 at the veery end of the rotaiton
+        else if ((lastSide == Vector3.right && hit.normal == Vector3.down) || (lastSide == Vector3.left && hit.normal == Vector3.down))
         {
-            camControl.modifier = Mathf.Lerp(0, 180, currentRotation) - camCorrection;
-            camCorrection = Mathf.Lerp(0, 180, currentRotation);
-            //camControl.modifier = -180;
+            if (!camFlipped && (transform.rotation.x == 1))
+            {
+                camFlipped = true;
+                camControl.modifier = 180;
+            }
         }
     }
 
