@@ -10,6 +10,7 @@ public class Respawn : MonoBehaviour
         if (other.CompareTag("Player")){
             other.transform.position = respawnPoint.transform.position;
         }
+        //print(other.tag);
     }
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,6 @@ public class Respawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //print("Touched lava");
     }
 }
