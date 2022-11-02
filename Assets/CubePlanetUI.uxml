@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Frame">
+        <ui:Label text="0/6" display-tooltip-when-elided="true" name="Score" style="-unity-text-align: upper-center; -unity-text-outline-width: 0.1px; top: 5%; font-size: 30%;" />
+    </ui:VisualElement>
+</ui:UXML>
