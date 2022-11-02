@@ -55,6 +55,8 @@ public class RunawayItemController : MonoBehaviour
         currentRotation = 0;
         camCorrection = 0;
         movementTimer = 0;
+        core = GameObject.Find("Core").transform;
+        player = GameObject.Find("Player").transform;
     }
 
     void Update()
@@ -171,8 +173,8 @@ public class RunawayItemController : MonoBehaviour
         if (movementTimer <= 0)
         {
             movementTimer = movementTimerLength;
-            verticalMovement = Random.Range(1f, 2f); 
-            horizontalMovement = Random.Range(1f, 2f);
+            verticalMovement = Random.Range(1f, 2f) * RandomSign();
+            horizontalMovement = Random.Range(1f, 2f) * RandomSign();
         } 
         else
         {
@@ -180,6 +182,20 @@ public class RunawayItemController : MonoBehaviour
         } 
         moveDirection = rotator.forward * verticalMovement + rotator.right * horizontalMovement;
     }
+
+    //Returns either 1 or -1
+    private float RandomSign()
+    {
+        if (Random.value < 0.5)
+        {
+            return -1;
+        } 
+        else
+        {
+            return 1;
+        }
+    }
+
 
     //Returns the only non zero number in a vector
     private float GetNonZero(Vector3 diff)
@@ -205,7 +221,7 @@ public class RunawayItemController : MonoBehaviour
     private void MoveItem()
     {
         //Helps gets the block unstuck when it gets stuck on corners (when its trying to move but isnt)
-        if (Vector3.Distance(transform.position, player.position) < 10 && rb.velocity.magnitude < .25)
+        if (rb.velocity.magnitude < .25)
         {
             Jump();
         }
