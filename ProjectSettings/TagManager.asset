@@ -10,6 +10,7 @@ TagManager:
   - ChairSpin
   - FridgeSpin
   - EndBed
+  - ground
   layers:
   - Default
   - TransparentFX

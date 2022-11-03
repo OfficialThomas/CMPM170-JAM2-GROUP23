@@ -22,6 +22,13 @@ public class RigidbodyController : MonoBehaviour
     private bool isGrounded;
     public float gravity = -20f;
 
+    //SFX
+    //public AudioSource jumpSound;
+    //public AudioSource footSteps;
+    public AudioSource audioSource;
+    public AudioClip footSteps;
+    public AudioClip jumpSound;
+
     public Rigidbody rb;
 
     //Layer masks
@@ -40,6 +47,13 @@ public class RigidbodyController : MonoBehaviour
     private float camCorrection;
     private bool camFlipped = true;
 
+    //Emersen Raycast Stuff
+    //public GameObject cubeCenter;
+    //public float hitHeight = 2f;
+
+    //Player Transform
+    //public GameObject playerTrans;
+
     void Start()
     {
         rb.freezeRotation = true;
@@ -48,6 +62,8 @@ public class RigidbodyController : MonoBehaviour
         Physics.gravity = lastSide * gravity;
         currentRotation = 0;
         camCorrection = 0;
+        //playerTrans = GameObject.Find("Player");
+        // cubeCenter = GameObject.Find("Core");
     }
 
     void Update()
@@ -61,6 +77,10 @@ public class RigidbodyController : MonoBehaviour
         ControlDrag();
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            //jumpSound.Play();
+            audioSource.Stop();
+            audioSource.PlayOneShot(jumpSound);
+            // footSteps.Stop();
             Jump();
         }
     }
@@ -174,11 +194,46 @@ public class RigidbodyController : MonoBehaviour
         if (isGrounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+            //print(moveDirection.magnitude);
+            if (moveDirection.magnitude > 0) //!(moveDirection.normalized.x > 0 || moveDirection.normalized.y > 0 || moveDirection.normalized.z > 0)
+            {
+                //footSteps.Play();
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(footSteps);
+                }
+                //print("hello");
+            }
+            else
+            {
+                audioSource.Stop();
+                //footSteps.Stop();
+            }
         }
         else
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier, ForceMode.Acceleration);
+            // footSteps.Stop();
+            // audioSource.Stop();
         }
+        //RaycastHit hit1;
+        //Transform rayTrans = playerTrans.transform;
+        //rayTrans.LookAt(cubeCenter.transform.position);
+        //Ray landingRay = new Ray(playerTrans.transform.position, rayTrans.position);
+        //if (Physics.Raycast(landingRay, out hit1, hitHeight))
+        //{
+        //    // print(hit1.collider.tag);
+        //    if(hit1.collider.tag == "ground") //&& (moveDirection.normalized.x > 0 || moveDirection.normalized.y > 0 || moveDirection.normalized.z > 0)
+        //    {
+        //        // print("we're hitting ground!");
+        //        footSteps.Play();
+        //    }
+        //    else
+        //    {
+        //        // print("are we in here?");
+        //        footSteps.Stop();
+        //    }
+        //}
 
     }
 
