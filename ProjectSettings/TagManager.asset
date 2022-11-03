@@ -6,6 +6,10 @@ TagManager:
   tags:
   - CinemachineTarget
   - BedVert
+  - BedHoriz
+  - ChairSpin
+  - FridgeSpin
+  - EndBed
   layers:
   - Default
   - TransparentFX

@@ -17,13 +17,21 @@ public class ObjectMove : MonoBehaviour
     void Update()
     {
         if (myObject.CompareTag("BedVert")){
-            // if (myObject.transform.position.y >= origPos.y - 7.5f){
-            //     myObject.transform.Translate(Vector3.down * 2f * Time.deltaTime);
-            // }
-            // else if (myObject.transform.position.y < origPos.y){
-            //     myObject.transform.Translate(Vector3.up * 2f * Time.deltaTime);
-            // }
             float new_y = origPos.y - Mathf.PingPong(Time.time * 0.3f, 1f) * 7.5f;
+            myObject.transform.position = new Vector3(origPos.x, new_y, origPos.z);
+        }
+        else if (myObject.CompareTag("BedHoriz")){
+            float new_x = origPos.x + Mathf.PingPong(Time.time * 0.2f, 1f) * 6f;
+            myObject.transform.position = new Vector3(new_x, origPos.y, origPos.z);
+        }
+        else if (myObject.CompareTag("ChairSpin")){
+            myObject.transform.Rotate(0, 25 * Time.deltaTime, 0);
+        }
+        else if (myObject.CompareTag("FridgeSpin")){
+            myObject.transform.Rotate(0, 10 * Time.deltaTime, 0);
+        }
+        else if (myObject.CompareTag("EndBed")){
+            float new_y = origPos.y - Mathf.PingPong(Time.time * 0.4f, 1f) * 5f;
             myObject.transform.position = new Vector3(origPos.x, new_y, origPos.z);
         }
     }
