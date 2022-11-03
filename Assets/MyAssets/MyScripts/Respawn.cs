@@ -5,6 +5,7 @@ using UnityEngine;
 public class Respawn : MonoBehaviour
 {
     public Transform respawnPoint;
+    public CameraManager fadeControl;
 
     //sounds N' Stuff
     public AudioSource audioSource;
@@ -20,6 +21,7 @@ public class Respawn : MonoBehaviour
             other.transform.position = respawnPoint.transform.position;
             int num = new System.Random().Next(0, soundArray.Count);
             audioSource.PlayOneShot((AudioClip)soundArray[num]);
+            fadeControl.FadeIn();
         }
         //print(other.tag);
     }
