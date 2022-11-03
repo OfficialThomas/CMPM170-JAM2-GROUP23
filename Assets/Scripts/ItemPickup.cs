@@ -8,6 +8,7 @@ public class ItemPickup : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip gotBall;
 
+    //Item is destroyed and adds to the game score when touched by player
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")

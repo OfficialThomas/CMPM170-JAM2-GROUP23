@@ -19,6 +19,7 @@ public class ItemBouncing : MonoBehaviour
         goingUp = true;
     }
 
+    //Moves the item up and down based on its original position
     private void FixedUpdate()
     {
         if (goingUp)

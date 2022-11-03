@@ -115,7 +115,9 @@ public class RigidbodyController : MonoBehaviour
     }
 
 
-    //Same function as above, but now rotates player gradually instead of snapping their orientation into place
+    //Checks if the player is trying to move to a different side of the planet by shooting
+    //a line from the player to the center of the planet and checking the normals
+    //of the surface hit. If it is a new surface, updates the gravity and player orientation
     private void GravityCheck()
     {
         hit = new RaycastHit();
@@ -212,46 +214,22 @@ public class RigidbodyController : MonoBehaviour
         if (isGrounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
-            //print(moveDirection.magnitude);
-            if (moveDirection.magnitude > 0) //!(moveDirection.normalized.x > 0 || moveDirection.normalized.y > 0 || moveDirection.normalized.z > 0)
+            if (moveDirection.magnitude > 0)
             {
-                //footSteps.Play();
                 if (!audioSource.isPlaying)
                 {
                     audioSource.PlayOneShot(footSteps);
                 }
-                //print("hello");
             }
             else
             {
                 audioSource.Stop();
-                //footSteps.Stop();
             }
         }
         else
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier, ForceMode.Acceleration);
-            // footSteps.Stop();
-            // audioSource.Stop();
         }
-        //RaycastHit hit1;
-        //Transform rayTrans = playerTrans.transform;
-        //rayTrans.LookAt(cubeCenter.transform.position);
-        //Ray landingRay = new Ray(playerTrans.transform.position, rayTrans.position);
-        //if (Physics.Raycast(landingRay, out hit1, hitHeight))
-        //{
-        //    // print(hit1.collider.tag);
-        //    if(hit1.collider.tag == "ground") //&& (moveDirection.normalized.x > 0 || moveDirection.normalized.y > 0 || moveDirection.normalized.z > 0)
-        //    {
-        //        // print("we're hitting ground!");
-        //        footSteps.Play();
-        //    }
-        //    else
-        //    {
-        //        // print("are we in here?");
-        //        footSteps.Stop();
-        //    }
-        //}
 
     }
 
