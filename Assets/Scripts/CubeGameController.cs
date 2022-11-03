@@ -15,8 +15,6 @@ public class CubeGameController : MonoBehaviour
     public UIDocument uiDoc;
     private VisualElement frame;
     
-
-    // Start is called before the first frame update
     void Start()
     {
         score = 0;
@@ -26,7 +24,6 @@ public class CubeGameController : MonoBehaviour
         scoreText = frame.Q<Label>("Score");
     }
 
-    // Update is called once per frame
     void Update()
     {
         scoreText.text = score.ToString() + "/6";

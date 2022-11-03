@@ -73,8 +73,6 @@ public class RigidbodyController : MonoBehaviour
         {
             GravityCheck();
         }
-        PlayerInput();
-        ControlDrag();
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             //jumpSound.Play();
@@ -83,6 +81,8 @@ public class RigidbodyController : MonoBehaviour
             // footSteps.Stop();
             Jump();
         }
+        PlayerInput();
+        ControlDrag();      
     }
 
     private void FixedUpdate()
