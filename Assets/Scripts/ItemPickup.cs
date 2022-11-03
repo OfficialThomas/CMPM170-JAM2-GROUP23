@@ -10,7 +10,6 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //DO SOME UI STUFF
             gameController.score += 1;
             gameObject.SetActive(false);
         }
