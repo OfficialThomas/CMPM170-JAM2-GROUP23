@@ -24,6 +24,12 @@ public class NormalController : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip footSteps;
     public AudioClip jumpSound;
+    public AudioClip jumpSound2;
+    public AudioClip jumpSound3;
+    public AudioClip jumpSound4;
+    public AudioClip jumpSound5;
+
+    public ArrayList soundArray = new ArrayList();
 
     public Rigidbody rb;
 
@@ -35,9 +41,17 @@ public class NormalController : MonoBehaviour
     {
         rb.freezeRotation = true;
         Physics.gravity = Vector3.up * gravity;
+
+        soundArray.Add(jumpSound);
+        soundArray.Add(jumpSound2);
+        soundArray.Add(jumpSound3);
+        soundArray.Add(jumpSound4);
+        soundArray.Add(jumpSound5);
     }
     private void Update()
     {
+        int num = new System.Random().Next(0, soundArray.Count);
+
         isGrounded = Physics.CheckSphere(groundCheck.position, .1f, groundMask);
 
         PlayerInput();
@@ -45,7 +59,7 @@ public class NormalController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             audioSource.Stop();
-            audioSource.PlayOneShot(jumpSound);
+            audioSource.PlayOneShot((AudioClip)soundArray[num]);
             Jump();
         }
     }

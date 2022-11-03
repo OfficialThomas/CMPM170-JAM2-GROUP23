@@ -856,6 +856,10 @@ MonoBehaviour:
   audioSource: {fileID: 359597295}
   footSteps: {fileID: 8300000, guid: d8ca2338806dc3847a6b2c1db61617be, type: 3}
   jumpSound: {fileID: 8300000, guid: c04273e303d825445a17c7cf449be0ba, type: 3}
+  jumpSound2: {fileID: 8300000, guid: 561d184cade68314fb7b19982970666a, type: 3}
+  jumpSound3: {fileID: 8300000, guid: e64bd52c27a6f0c4697e87979499e61a, type: 3}
+  jumpSound4: {fileID: 8300000, guid: f2b53645f1f479f488a04bf90f08ef79, type: 3}
+  jumpSound5: {fileID: 8300000, guid: 409644e9776edb84eab73a847f766f2d, type: 3}
   rb: {fileID: 359597291}
   groundCheck: {fileID: 1778679728}
   groundMask:

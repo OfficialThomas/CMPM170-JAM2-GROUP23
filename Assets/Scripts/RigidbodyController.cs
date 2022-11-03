@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class RigidbodyController : MonoBehaviour
 {
@@ -28,6 +29,14 @@ public class RigidbodyController : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip footSteps;
     public AudioClip jumpSound;
+    public AudioClip jumpSound2;
+    public AudioClip jumpSound3;
+    public AudioClip jumpSound4;
+    public AudioClip jumpSound5;
+
+    public ArrayList soundArray = new ArrayList();
+    // AudioClip changeClip;
+    // System.Random r = new System.Random();
 
     public Rigidbody rb;
 
@@ -64,10 +73,19 @@ public class RigidbodyController : MonoBehaviour
         camCorrection = 0;
         //playerTrans = GameObject.Find("Player");
         // cubeCenter = GameObject.Find("Core");
+        soundArray.Add(jumpSound);
+        soundArray.Add(jumpSound2);
+        soundArray.Add(jumpSound3);
+        soundArray.Add(jumpSound4);
+        soundArray.Add(jumpSound5);
+
     }
 
     void Update()
     {
+        int num = new System.Random().Next(0, soundArray.Count);
+        //print(num);
+
         isGrounded = Physics.CheckSphere(groundCheck.position, .1f, groundMask);
         if (planetGravity)
         {
@@ -77,7 +95,7 @@ public class RigidbodyController : MonoBehaviour
         {
             //jumpSound.Play();
             audioSource.Stop();
-            audioSource.PlayOneShot(jumpSound);
+            audioSource.PlayOneShot((AudioClip)soundArray[num]);
             // footSteps.Stop();
             Jump();
         }
