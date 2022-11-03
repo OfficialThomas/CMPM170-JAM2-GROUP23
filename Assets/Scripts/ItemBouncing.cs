@@ -37,8 +37,6 @@ public class ItemBouncing : MonoBehaviour
         else if (currentPos <= 0)
         {
             goingUp = true;
-        }
-        
+        }   
     }
-
 }
