@@ -28,6 +28,7 @@ public class NormalController : MonoBehaviour
     public AudioClip jumpSound3;
     public AudioClip jumpSound4;
     public AudioClip jumpSound5;
+    private AudioClip currentClip;
 
     public ArrayList soundArray = new ArrayList();
 
@@ -60,6 +61,7 @@ public class NormalController : MonoBehaviour
         {
             audioSource.Stop();
             audioSource.PlayOneShot((AudioClip)soundArray[num]);
+            currentClip = (AudioClip)soundArray[num];
             Jump();
         }
     }
@@ -89,9 +91,10 @@ public class NormalController : MonoBehaviour
                 if (!audioSource.isPlaying)
                 {
                     audioSource.PlayOneShot(footSteps);
+                    currentClip = footSteps;
                 }
             }
-            else
+            else if (currentClip == footSteps)
             {
                 audioSource.Stop();
             }
