@@ -336,7 +336,6 @@ GameObject:
   m_Component:
   - component: {fileID: 177370784}
   - component: {fileID: 177370783}
-  - component: {fileID: 177370782}
   m_Layer: 0
   m_Name: MusicControl
   m_TagString: Untagged
@@ -344,18 +343,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &177370782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177370781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f0d66331a8745045b76605bdf07f146, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &177370783
 AudioSource:
   m_ObjectHideFlags: 0
@@ -714,7 +701,7 @@ PrefabInstance:
     - target: {fileID: 3473581153338683867, guid: 9bb21af90e3a04046b7c6c033b64a8f3, type: 3}
       propertyPath: gotBall
       value: 
-      objectReference: {fileID: 8300000, guid: 67b7d56b1a3f10a4a8f168afa9699961, type: 3}
+      objectReference: {fileID: 8300000, guid: d8f8fb423bbfce341b5dacc4e1b299aa, type: 3}
     - target: {fileID: 3473581153338683867, guid: 9bb21af90e3a04046b7c6c033b64a8f3, type: 3}
       propertyPath: audioSource
       value: 
@@ -1136,7 +1123,7 @@ PrefabInstance:
     - target: {fileID: 6109752588224500431, guid: a940037157408ac41b2b386737a1645f, type: 3}
       propertyPath: gotBall
       value: 
-      objectReference: {fileID: 8300000, guid: 67b7d56b1a3f10a4a8f168afa9699961, type: 3}
+      objectReference: {fileID: 8300000, guid: d8f8fb423bbfce341b5dacc4e1b299aa, type: 3}
     - target: {fileID: 6109752588224500431, guid: a940037157408ac41b2b386737a1645f, type: 3}
       propertyPath: audioSource
       value: 
@@ -6595,7 +6582,7 @@ PrefabInstance:
     - target: {fileID: 3473581153338683867, guid: 9bb21af90e3a04046b7c6c033b64a8f3, type: 3}
       propertyPath: gotBall
       value: 
-      objectReference: {fileID: 8300000, guid: 67b7d56b1a3f10a4a8f168afa9699961, type: 3}
+      objectReference: {fileID: 8300000, guid: d8f8fb423bbfce341b5dacc4e1b299aa, type: 3}
     - target: {fileID: 3473581153338683867, guid: 9bb21af90e3a04046b7c6c033b64a8f3, type: 3}
       propertyPath: audioSource
       value: 
@@ -8181,7 +8168,7 @@ PrefabInstance:
     - target: {fileID: 3473581153338683867, guid: 9bb21af90e3a04046b7c6c033b64a8f3, type: 3}
       propertyPath: gotBall
       value: 
-      objectReference: {fileID: 8300000, guid: 67b7d56b1a3f10a4a8f168afa9699961, type: 3}
+      objectReference: {fileID: 8300000, guid: d8f8fb423bbfce341b5dacc4e1b299aa, type: 3}
     - target: {fileID: 3473581153338683867, guid: 9bb21af90e3a04046b7c6c033b64a8f3, type: 3}
       propertyPath: audioSource
       value: 
@@ -8871,7 +8858,7 @@ PrefabInstance:
     - target: {fileID: 6109752588224500431, guid: a940037157408ac41b2b386737a1645f, type: 3}
       propertyPath: gotBall
       value: 
-      objectReference: {fileID: 8300000, guid: 67b7d56b1a3f10a4a8f168afa9699961, type: 3}
+      objectReference: {fileID: 8300000, guid: d8f8fb423bbfce341b5dacc4e1b299aa, type: 3}
     - target: {fileID: 6109752588224500431, guid: a940037157408ac41b2b386737a1645f, type: 3}
       propertyPath: audioSource
       value: 
@@ -9023,7 +9010,7 @@ PrefabInstance:
     - target: {fileID: 3473581153338683867, guid: 9bb21af90e3a04046b7c6c033b64a8f3, type: 3}
       propertyPath: gotBall
       value: 
-      objectReference: {fileID: 8300000, guid: 67b7d56b1a3f10a4a8f168afa9699961, type: 3}
+      objectReference: {fileID: 8300000, guid: d8f8fb423bbfce341b5dacc4e1b299aa, type: 3}
     - target: {fileID: 3473581153338683867, guid: 9bb21af90e3a04046b7c6c033b64a8f3, type: 3}
       propertyPath: audioSource
       value: 
