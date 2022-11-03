@@ -33,6 +33,7 @@ public class RigidbodyController : MonoBehaviour
     public AudioClip jumpSound3;
     public AudioClip jumpSound4;
     public AudioClip jumpSound5;
+    private AudioClip currentClip;
 
     public ArrayList soundArray = new ArrayList();
     // AudioClip changeClip;
@@ -56,13 +57,6 @@ public class RigidbodyController : MonoBehaviour
     private float camCorrection;
     private bool camFlipped = true;
 
-    //Emersen Raycast Stuff
-    //public GameObject cubeCenter;
-    //public float hitHeight = 2f;
-
-    //Player Transform
-    //public GameObject playerTrans;
-
     void Start()
     {
         rb.freezeRotation = true;
@@ -71,8 +65,6 @@ public class RigidbodyController : MonoBehaviour
         Physics.gravity = lastSide * gravity;
         currentRotation = 0;
         camCorrection = 0;
-        //playerTrans = GameObject.Find("Player");
-        // cubeCenter = GameObject.Find("Core");
         soundArray.Add(jumpSound);
         soundArray.Add(jumpSound2);
         soundArray.Add(jumpSound3);
@@ -84,7 +76,6 @@ public class RigidbodyController : MonoBehaviour
     void Update()
     {
         int num = new System.Random().Next(0, soundArray.Count);
-        //print(num);
 
         isGrounded = Physics.CheckSphere(groundCheck.position, .1f, groundMask);
         if (planetGravity)
@@ -93,10 +84,9 @@ public class RigidbodyController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            //jumpSound.Play();
             audioSource.Stop();
             audioSource.PlayOneShot((AudioClip)soundArray[num]);
-            // footSteps.Stop();
+            currentClip = (AudioClip)soundArray[num];
             Jump();
         }
         PlayerInput();
@@ -214,16 +204,23 @@ public class RigidbodyController : MonoBehaviour
         if (isGrounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+            //Plays footstep noise when player is moving
             if (moveDirection.magnitude > 0)
             {
                 if (!audioSource.isPlaying)
                 {
                     audioSource.PlayOneShot(footSteps);
+                    currentClip = footSteps;
                 }
             }
             else
             {
-                audioSource.Stop();
+                //Stops the footsteps audio when player isnt moving
+                if (currentClip == footSteps)
+                {
+                    audioSource.Stop();
+                }
+                
             }
         }
         else
