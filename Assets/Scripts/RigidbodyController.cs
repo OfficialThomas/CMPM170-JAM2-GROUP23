@@ -222,7 +222,7 @@ public class RigidbodyController : MonoBehaviour
                 }
                 //print("hello");
             }
-            else
+            else if (!audioSource.isPlaying)
             {
                 audioSource.Stop();
                 //footSteps.Stop();
