@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - BedVert
+  - BedHoriz
+  - ChairSpin
+  - FridgeSpin
+  - EndBed
   - ground
   layers:
   - Default
@@ -14,7 +19,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Pit
   - 
   - 
   - Player
