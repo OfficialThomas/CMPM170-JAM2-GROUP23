@@ -20,6 +20,11 @@ public class NormalController : MonoBehaviour
     bool isGrounded;
     public float gravity = -9.81f;
 
+    //sound stuff
+    public AudioSource audioSource;
+    public AudioClip footSteps;
+    public AudioClip jumpSound;
+
     public Rigidbody rb;
 
     //Layer masks
@@ -34,10 +39,13 @@ public class NormalController : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, .1f, groundMask);
+
         PlayerInput();
         ControlDrag();
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            audioSource.Stop();
+            audioSource.PlayOneShot(jumpSound);
             Jump();
         }
     }
@@ -62,9 +70,21 @@ public class NormalController : MonoBehaviour
         if (isGrounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+            if (moveDirection.magnitude > 0)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(footSteps);
+                }
+            }
+            else
+            {
+                audioSource.Stop();
+            }
         }
         else
         {
+            // audioSource.Stop();
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier, ForceMode.Acceleration);
         }
 
