@@ -35,7 +35,7 @@ public class CubeGameController : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = score.ToString() + "/6";
+        scoreText.text = score.ToString() + "/" + scoreToWin.ToString();
         
         //Once player has collected all items, transitions player to new scene after a time delay
         if (score == scoreToWin && delayTimer <= 0)
