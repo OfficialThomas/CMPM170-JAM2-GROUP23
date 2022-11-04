@@ -22,7 +22,9 @@ public class CubeGameController : MonoBehaviour
     public string nextScene;
     public float delayBeforeTransition;
     private float delayTimer;
-    
+    public CameraManager fadeControl;
+    private bool transitionStarted = false;
+
     void Start()
     {
         score = 0;
@@ -44,6 +46,11 @@ public class CubeGameController : MonoBehaviour
         }
         else if (score == scoreToWin)
         {
+            if (!transitionStarted)
+            {
+                fadeControl.FadeOut();
+            }
+            transitionStarted = true;
             delayTimer -= Time.deltaTime;
         }
 

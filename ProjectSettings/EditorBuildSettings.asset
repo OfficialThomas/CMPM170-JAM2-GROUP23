@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HospitalRotated.unity
     guid: 67f49da6b6727b44e9aa140334cce723
+  - enabled: 1
+    path: Assets/Scenes/HospitalEnd.unity
+    guid: 145fecb362085bd41b65e9569b68e813
   m_configObjects: {}
