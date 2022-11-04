@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HospitalEnd.unity
     guid: 145fecb362085bd41b65e9569b68e813
+  - enabled: 1
+    path: Assets/Scenes/stencil level.unity
+    guid: ff846d03d73c2f4478fb664d9491296b
+  - enabled: 1
+    path: Assets/Scenes/HospitalThree.unity
+    guid: 87aca31be2ce63142b1feb7b49ecd93a
   m_configObjects: {}

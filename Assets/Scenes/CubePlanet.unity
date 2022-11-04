@@ -1123,7 +1123,7 @@ MonoBehaviour:
   - {fileID: 1985297956}
   - {fileID: 1862862299}
   uiDoc: {fileID: 1503908908}
-  nextScene: HospitalEnd
+  nextScene: HospitalThree
   delayBeforeTransition: 2
   fadeControl: {fileID: 1600091370}
 --- !u!1 &434536645 stripped
