@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 using UnityEngine;
 
 public class Respawn : MonoBehaviour
 {
     public Transform respawnPoint;
     public CameraManager fadeControl;
+
+    private Label skipText;
+    public UIDocument uiDoc;
+    private VisualElement frame;
+
+    private int deathCount = 0;
 
     //sounds N' Stuff
     public AudioSource audioSource;
@@ -22,6 +29,7 @@ public class Respawn : MonoBehaviour
             int num = new System.Random().Next(0, soundArray.Count);
             audioSource.PlayOneShot((AudioClip)soundArray[num]);
             fadeControl.FadeIn();
+            deathCount++;
         }
         //print(other.tag);
     }
@@ -31,11 +39,18 @@ public class Respawn : MonoBehaviour
         soundArray.Add(reviveSound1);
         soundArray.Add(reviveSound2);
         soundArray.Add(reviveSound3);
+
+        var rootVisualElement = uiDoc.rootVisualElement;
+        frame = rootVisualElement.Q<VisualElement>("Frame");
+        skipText = frame.Q<Label>("Skip");
+        skipText.text = "";
     }
 
     // Update is called once per frame
     void Update()
     {
-        //print("Touched lava");
+        if (deathCount > 3){
+            skipText.text = "Press H to skip to the next room";
+        }
     }
 }
