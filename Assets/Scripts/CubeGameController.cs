@@ -21,7 +21,7 @@ public class CubeGameController : MonoBehaviour
     //Scene transition
     public string nextScene;
     public float delayBeforeTransition;
-    public float delayTimer;
+    private float delayTimer;
     
     void Start()
     {
