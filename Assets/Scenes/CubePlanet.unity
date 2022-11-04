@@ -1124,7 +1124,7 @@ MonoBehaviour:
   - {fileID: 1862862299}
   uiDoc: {fileID: 1503908908}
   nextScene: HospitalSet
-  delayBeforeTransition: 1
+  delayBeforeTransition: 0
 --- !u!1 &434536645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3745526407785248329, guid: 3970b5eee4ab5864bbfc6fd2c8f4450f, type: 3}
