@@ -11,12 +11,6 @@ public class RunawayItemRotation : MonoBehaviour
     float xRotation, yRotation;
     public float modifier;
 
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
     //Late update so that the rotation modifer is always calculated first
     void LateUpdate()
     {

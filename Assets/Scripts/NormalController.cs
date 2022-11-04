@@ -20,6 +20,18 @@ public class NormalController : MonoBehaviour
     bool isGrounded;
     public float gravity = -9.81f;
 
+    //sound stuff
+    public AudioSource audioSource;
+    public AudioClip footSteps;
+    public AudioClip jumpSound;
+    public AudioClip jumpSound2;
+    public AudioClip jumpSound3;
+    public AudioClip jumpSound4;
+    public AudioClip jumpSound5;
+    public AudioClip currentClip;
+
+    public ArrayList soundArray = new ArrayList();
+
     public Rigidbody rb;
 
     //Layer masks
@@ -30,14 +42,26 @@ public class NormalController : MonoBehaviour
     {
         rb.freezeRotation = true;
         Physics.gravity = Vector3.up * gravity;
+
+        soundArray.Add(jumpSound);
+        soundArray.Add(jumpSound2);
+        soundArray.Add(jumpSound3);
+        soundArray.Add(jumpSound4);
+        soundArray.Add(jumpSound5);
     }
     private void Update()
     {
+        int num = new System.Random().Next(0, soundArray.Count);
+
         isGrounded = Physics.CheckSphere(groundCheck.position, .1f, groundMask);
+
         PlayerInput();
         ControlDrag();
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            audioSource.Stop();
+            audioSource.PlayOneShot((AudioClip)soundArray[num]);
+            currentClip = (AudioClip)soundArray[num];
             Jump();
         }
     }
@@ -62,9 +86,22 @@ public class NormalController : MonoBehaviour
         if (isGrounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+            if (moveDirection.magnitude > 0)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(footSteps);
+                    currentClip = footSteps;
+                }
+            }
+            else if (currentClip == footSteps)
+            {
+                audioSource.Stop();
+            }
         }
         else
         {
+            // audioSource.Stop();
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier, ForceMode.Acceleration);
         }
 

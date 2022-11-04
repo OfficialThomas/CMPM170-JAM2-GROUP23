@@ -78,14 +78,16 @@ public class RunawayItemController : MonoBehaviour
         rb.AddForce(gravityVector, ForceMode.Acceleration);
     }
 
-    //Player Jump
+    //Item Jump
     private void Jump()
     {
         rb.AddForce(transform.up * jumpPower, ForceMode.Impulse);
     }
 
 
-    //Same function as above, but now rotates player gradually instead of snapping their orientation into place
+    //Checks if the item is trying to move to a different side of the planet by shooting
+    //a line from the item to the center of the planet and checking the normals
+    //of the surface hit. If it is a new surface, updates the gravity and item orientation
     private void GravityCheck()
     {
         hit = new RaycastHit();
@@ -195,27 +197,6 @@ public class RunawayItemController : MonoBehaviour
             return 1;
         }
     }
-
-
-    //Returns the only non zero number in a vector
-    private float GetNonZero(Vector3 diff)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            if (diff[i] != 0)
-            {
-                return diff[i];
-            }
-        }
-        return 0;
-    }
-
-    //multiplies the x,y and z of two vectors together
-    private Vector3 MultiplyVectors(Vector3 first, Vector3 second)
-    {
-        return new Vector3(first.x * second.x, first.y * second.y, first.z * second.z);
-    }
-
 
     //Moves the item
     private void MoveItem()

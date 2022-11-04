@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class RigidbodyController : MonoBehaviour
 {
@@ -21,6 +22,22 @@ public class RigidbodyController : MonoBehaviour
     public float airMultiplier = .2f;
     private bool isGrounded;
     public float gravity = -20f;
+
+    //SFX
+    //public AudioSource jumpSound;
+    //public AudioSource footSteps;
+    public AudioSource audioSource;
+    public AudioClip footSteps;
+    public AudioClip jumpSound;
+    public AudioClip jumpSound2;
+    public AudioClip jumpSound3;
+    public AudioClip jumpSound4;
+    public AudioClip jumpSound5;
+    private AudioClip currentClip;
+
+    public ArrayList soundArray = new ArrayList();
+    // AudioClip changeClip;
+    // System.Random r = new System.Random();
 
     public Rigidbody rb;
 
@@ -48,21 +65,32 @@ public class RigidbodyController : MonoBehaviour
         Physics.gravity = lastSide * gravity;
         currentRotation = 0;
         camCorrection = 0;
+        soundArray.Add(jumpSound);
+        soundArray.Add(jumpSound2);
+        soundArray.Add(jumpSound3);
+        soundArray.Add(jumpSound4);
+        soundArray.Add(jumpSound5);
+
     }
 
     void Update()
     {
+        int num = new System.Random().Next(0, soundArray.Count);
+
         isGrounded = Physics.CheckSphere(groundCheck.position, .1f, groundMask);
         if (planetGravity)
         {
             GravityCheck();
         }
-        PlayerInput();
-        ControlDrag();
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            audioSource.Stop();
+            audioSource.PlayOneShot((AudioClip)soundArray[num]);
+            currentClip = (AudioClip)soundArray[num];
             Jump();
         }
+        PlayerInput();
+        ControlDrag();      
     }
 
     private void FixedUpdate()
@@ -77,7 +105,9 @@ public class RigidbodyController : MonoBehaviour
     }
 
 
-    //Same function as above, but now rotates player gradually instead of snapping their orientation into place
+    //Checks if the player is trying to move to a different side of the planet by shooting
+    //a line from the player to the center of the planet and checking the normals
+    //of the surface hit. If it is a new surface, updates the gravity and player orientation
     private void GravityCheck()
     {
         hit = new RaycastHit();
@@ -174,6 +204,24 @@ public class RigidbodyController : MonoBehaviour
         if (isGrounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+            //Plays footstep noise when player is moving
+            if (moveDirection.magnitude > 0)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(footSteps);
+                    currentClip = footSteps;
+                }
+            }
+            else
+            {
+                //Stops the footsteps audio when player isnt moving
+                if (currentClip == footSteps)
+                {
+                    audioSource.Stop();
+                }
+                
+            }
         }
         else
         {

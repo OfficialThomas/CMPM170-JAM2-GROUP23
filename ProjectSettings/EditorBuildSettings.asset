@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/HospitalStart.unity
+    guid: 42fa1469ebe45d641ba6b16ed4df4e96
+  - enabled: 1
+    path: Assets/Scenes/HospitalSet.unity
+    guid: e49263b2e7ba51041af9ccd77326788c
+  - enabled: 1
+    path: Assets/Scenes/CubePlanet.unity
+    guid: 21b534c49f2ddfa45b5103f278ccab17
+  - enabled: 1
+    path: Assets/Scenes/Playground.unity
+    guid: 707acc8dffb72b144bb1ffbe1c965f3d
+  - enabled: 1
+    path: Assets/Scenes/HospitalRotated.unity
+    guid: 67f49da6b6727b44e9aa140334cce723
   m_configObjects: {}

@@ -25,7 +25,8 @@ public class CameraController : MonoBehaviour
         Cursor.visible = false;
     }
 
-    //Late update so that the rotation modifer is always calculated first
+    //Moves the players camera, adding the modifier given by the player controller script
+    //Uses late update so that the modifier is always calculated first
     void LateUpdate()
     {
         MouseInput();
